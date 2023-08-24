@@ -1,46 +1,58 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import {getMovies} from './stateManagement/slices/movieSlice';
+import {getMovies, setCurrentMovieName} from './stateManagement/slices/movieSlice';
 import {useDispatch, useSelector} from "react-redux"
 import SearchBox from './components/reuseables/SearchBox';
 import Button from './components/reuseables/Button';
+import LoadingSpinner from './components/reuseables/LoadingSpinner';
+import Layout from './components/Layout';
+import Pagination from './components/Pagination';
+import MovieList from './components/MovieList';
 
 
-// api = http://www.omdbapi.com/?i=tt3896198&apikey=73bff0fa
 function App() {
-  const [movieName, setMoviename] = useState("Avatar")
+  const [movieName, setMoviename] = useState("")
   
-  const { movies, isLoading } = useSelector(state => state.movieSlice)
+  const { movies, isLoading, defaultPage, currentMovieName } = useSelector(state => state.movieSlice)
   const dispatch = useDispatch()
-  
-  useEffect(()=>{
-     dispatch(getMovies)
-  }, [movieName])
 
-  const handleButtonClick = ()=>{
-    dispatch(getMovies(movieName))
+  console.log("defaultPage", typeof defaultPage);
+  useEffect(()=>{
+     dispatch(getMovies(currentMovieName, defaultPage))
+  }, [defaultPage])
+
+  const handleMovieSearch = ()=>{
+    dispatch(getMovies(movieName, 1))
+    dispatch(setCurrentMovieName(movieName))
+    setMoviename('')
   }
 
-  if(isLoading) return <div>Loading....</div>
+
   
   return (
-    <div className='flex-row items-center bg-slate-100 w-full h-full'>
-        <div className='flex justify-start p-3'>
+    <div className='flex-row items-center bg-black text-[red] overflow-hidden w-auto h-full mx-10 p-2 my-10 rounded-md'>
+        <Layout/>
+        <div className='flex justify-start py-3'>
             <SearchBox searchWord={movieName} setSearchWord={setMoviename}/>
-            <Button handleButtonClick={handleButtonClick}>Search</Button>
+            <Button handleMovieSearch={handleMovieSearch}>Search</Button>
         </div>
-        <div className="flex items-center justify-center bg-slate-100 w-full h-full">
-          <div className="grid grid-rows-4 grid-flow-col gap-4">
-            {movies.map((movie, index) => {
-              return(
-                <div className="bg-white rounded-md" key={index}>
-                  <img src={movie.Poster} height="500px" width="200px" className='w-300 h-500'/>
-                  <div>{movie.Title}</div>
-                </div>
-              )
-            })}
+        {isLoading &&
+          <div className='w-screen h-screen flex justify-center items-center'>  
+            <LoadingSpinner/> 
+        </div>}
+        <div className="flex items-center justify-center w-full h-full">
+          <div className="grid grid-cols-4 gap-4">
+            {movies?.Search?.length > 0 ? movies?.Search?.map((movie, index) => {
+              return <MovieList key={index} Title={movie.Title} Poster={movie.Poster} /> 
+            })
+          :
+          <div className='w-screen h-screen flex justify-center items-center'>
+              <span className='p-10 font-bold text-lg rounded-md border-2 border-[red]'>Please Search for a Movie </span>
+          </div>
+            }
           </div>
         </div>
+        {movies?.Search?.length > 0 && <Pagination movieName={movieName}/>}
     </div>
   );
 }
