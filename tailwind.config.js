@@ -7,6 +7,7 @@ module.exports = {
     extend: {},
     fontFamily: {
       'sans': ['Helvetica', 'Arial', 'sans-serif'],
+      'custom': ['MuseoModerno', 'sans-serif'],
     }
   },
   plugins: [],

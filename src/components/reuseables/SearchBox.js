@@ -5,6 +5,7 @@ const SearchBox = (props) => {
                 value={props.searchWord}
                 onChange={(e) => props.setSearchWord(e.target.value)}
                 type="text"
+                placeholder="movie name"
                 className="border-2 border-[red] rounded p-1 text-black "
             />
         </div>

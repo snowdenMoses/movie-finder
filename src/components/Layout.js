@@ -1,7 +1,7 @@
-const Layout = ()=>{
+const Layout = (props)=>{
     return(
-        <div className='font-bold text-lg font-sans'>
-            Find That Movie
+        <div className='font-bold text-6xl font-custom'>
+            {props.text}
         </div>
     )
 }
