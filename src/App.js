@@ -16,14 +16,12 @@ function App() {
   const [favouriteMovies, setFavouriteMovies] = useState([])
   const [onFavouriteClicked, setOnFavouriteClicked] = useState(false)
 
-  const { movies, isLoading, defaultPage, currentMovieName } = useSelector(state => state.movieSlice)
+  const { movies, isLoading, currentMovieName } = useSelector(state => state.movieSlice)
   const dispatch = useDispatch()
 
-  console.log("defaultPage", defaultPage);
-
   useEffect(() => {
-    dispatch(getMovies(currentMovieName, defaultPage))
-  }, [defaultPage])
+    dispatch(getMovies(currentMovieName))
+  }, [currentMovieName])
 
   useEffect(() => {
     const persistedFavouriteMovies = JSON.parse(localStorage.getItem("IMDB Movies"))
@@ -31,7 +29,7 @@ function App() {
   }, [])
 
   const handleMovieSearch = () => {
-    dispatch(getMovies(movieName, 1))
+    dispatch(getMovies(movieName))
     dispatch(setCurrentMovieName(movieName))
     setMoviename('')
   }
@@ -62,7 +60,7 @@ function App() {
           <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-between md:justify-between ssm:justify-between sm:items-center  py-5'>
             <div className='flex justify-start py-3'>
               <SearchBox searchWord={movieName} setSearchWord={setMoviename} />
-              <Button handleMovieSearch={handleMovieSearch}>Search</Button>
+              <Button handleMovieSearch={handleMovieSearch} title="Search"/>
             </div>
             <div className='flex justify-end items-center'>
               <div className={`font-bold cursor-pointer mr-2 font-custom ${!onFavouriteClicked ? 'border-b-2 border-[red]' : ""}`} onClick={() => { setOnFavouriteClicked(false) }}>Home</div>
@@ -74,7 +72,7 @@ function App() {
               <LoadingSpinner />
             </div>}
           <div className="flex items-center justify-center w-full h-full">
-            <div className="lg:grid-cols-4 md:grid-cols-3 ssm:grid-cols-2 sm:grid-cols-1">
+            <div className="grid gap-4 ssm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {movies?.Search?.length > 0 ? movies?.Search?.map((movie, index) => {
                 return <MovieList
                   key={index}
