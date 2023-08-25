@@ -16,6 +16,8 @@ function App() {
   const [favouriteMovies, setFavouriteMovies] = useState([])
   const [onFavouriteClicked, setOnFavouriteClicked] = useState(false)
 
+
+  console.log("favouriteMovies", favouriteMovies)
   const { movies, isLoading, currentMovieName } = useSelector(state => state.movieSlice)
   const dispatch = useDispatch()
 
@@ -25,7 +27,9 @@ function App() {
 
   useEffect(() => {
     const persistedFavouriteMovies = JSON.parse(localStorage.getItem("IMDB Movies"))
-    setFavouriteMovies(persistedFavouriteMovies)
+    if (persistedFavouriteMovies?.length > 0) {
+      setFavouriteMovies(persistedFavouriteMovies)
+    }
   }, [])
 
   const handleMovieSearch = () => {
@@ -60,7 +64,7 @@ function App() {
           <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-between md:justify-between ssm:justify-between sm:items-center  py-5'>
             <div className='flex justify-start py-3'>
               <SearchBox searchWord={movieName} setSearchWord={setMoviename} />
-              <Button handleMovieSearch={handleMovieSearch} title="Search"/>
+              <Button handleMovieSearch={handleMovieSearch} title="Search" />
             </div>
             <div className='flex justify-end items-center'>
               <div className={`font-bold cursor-pointer mr-2 font-custom ${!onFavouriteClicked ? 'border-b-2 border-[red]' : ""}`} onClick={() => { setOnFavouriteClicked(false) }}>Home</div>
