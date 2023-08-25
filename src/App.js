@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getMovies(currentMovieName))
-  }, [currentMovieName])
+  }, [currentMovieName, dispatch])
 
   useEffect(() => {
     const persistedFavouriteMovies = JSON.parse(localStorage.getItem("IMDB Movies"))
