@@ -10,6 +10,8 @@ COPY . .
 
 Run npm run build
 
+EXPOSE 80
+
 FROM nginx
 
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
