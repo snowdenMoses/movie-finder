@@ -6,7 +6,6 @@ import SearchBox from './components/reuseables/SearchBox';
 import Button from './components/reuseables/Button';
 import LoadingSpinner from './components/reuseables/LoadingSpinner';
 import Layout from './components/Layout';
-import Pagination from './components/Pagination';
 import MovieList from './components/MovieList';
 import AddToFavourite from './components/AddToFavourite';
 import RemoveFromFavourite from './components/RemoveFromfavourite';
@@ -17,10 +16,10 @@ function App() {
   const [favouriteMovies, setFavouriteMovies] = useState([])
   const [onFavouriteClicked, setOnFavouriteClicked] = useState(false)
 
-  console.log("favouriteMovie", favouriteMovies);
-
   const { movies, isLoading, defaultPage, currentMovieName } = useSelector(state => state.movieSlice)
   const dispatch = useDispatch()
+
+  console.log("defaultPage", defaultPage);
 
   useEffect(() => {
     dispatch(getMovies(currentMovieName, defaultPage))
@@ -60,7 +59,7 @@ function App() {
       {!onFavouriteClicked ?
         <div className='flex-row items-center bg-black text-[red] overflow-hidden w-auto h-full mx-10 p-10 my-10 rounded-md'>
           <Layout text="Find That Movie" />
-          <div className='flex justify-between items-center py-5'>
+          <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-between md:justify-between ssm:justify-between sm:items-center  py-5'>
             <div className='flex justify-start py-3'>
               <SearchBox searchWord={movieName} setSearchWord={setMoviename} />
               <Button handleMovieSearch={handleMovieSearch}>Search</Button>
@@ -75,7 +74,7 @@ function App() {
               <LoadingSpinner />
             </div>}
           <div className="flex items-center justify-center w-full h-full">
-            <div className="grid grid-cols-4 gap-4">
+            <div className="lg:grid-cols-4 md:grid-cols-3 ssm:grid-cols-2 sm:grid-cols-1">
               {movies?.Search?.length > 0 ? movies?.Search?.map((movie, index) => {
                 return <MovieList
                   key={index}
@@ -84,24 +83,23 @@ function App() {
                   favourite={AddToFavourite} />
               })
                 :
-                <div className=' flex justify-center items-center'>
+                <div className='flex justify-center items-center'>
                   <span className='p-10 font-bold text-lg rounded-md border-2 border-[red] font-custom'>Please Search for a Movie </span>
                 </div>
               }
             </div>
           </div>
-          {movies?.Search?.length > 0 && <Pagination movieName={movieName} />}
         </div>
         :
 
         <div className='flex-row items-center bg-black text-[red] overflow-hidden w-auto h-full mx-10 p-10 my-10 rounded-md'>
           <Layout text="Favourite Movies" />
-          <div className='flex justify-end items-center py-5'>
+          <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-end md:justify-end ssm:justify-end sm:items-center  py-5'>
             <div className={`font-bold cursor-pointer mr-2 font-custom ${!onFavouriteClicked ? 'border-b-2 border-[red]' : ""}`} onClick={() => { setOnFavouriteClicked(false) }}>Home</div>
             <div className={`font-bold cursor-pointer font-custom ${onFavouriteClicked ? 'border-b-2 border-[red]' : ""}`} onClick={() => { setOnFavouriteClicked(true) }}>Favourites</div>
           </div>
           <div className="flex items-center justify-center w-full h-full">
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid gap-4 ssm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {favouriteMovies?.length > 0 && favouriteMovies?.map((movie, index) => {
                 return <MovieList
                   key={index}
@@ -115,7 +113,6 @@ function App() {
                 Your Favourite Movie List is Empty
               </div>}
           </div>
-          {favouriteMovies?.length > 0 && <Pagination movieName={movieName} />}
         </div>}
     </>
   );

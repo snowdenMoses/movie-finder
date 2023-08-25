@@ -8,7 +8,7 @@ const MovieList = (props) => {
             <div className='img-card cursor-pointer'>
                 <img
                     src={props.movie.Poster}
-                    className='object-none w-[100%] h-[400px] rounded hover:scale-105' alt={props.movie.Title}
+                    className='object-none w-[100%] h-[400px] rounded hover:scale-105 sm:w-screen' alt={props.movie.Title}
                 />
                 <div className='overlay flex justify-center items-center'
                     onClick={() => {
