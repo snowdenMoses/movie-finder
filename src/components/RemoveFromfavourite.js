@@ -1,20 +1,16 @@
 const RemoveFromFavourite = () => {
     return (
         <div className='flex justify-center items-center'>
-            <div className='text-white text-sm'>
+            <div className='text-white text-sm mr-2'>
                 Remove From Favourite
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg"
-                    enable-background="new 0 0 24 24"
-                    viewBox="0 0 24 24" 
-                    id="close">
-                    <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z 
-                            M15.7,14.3c0.4,0.4,0.4,1,0,1.4c-0.4,0.4-1,0.4-1.4,0
-	                        L12,13.4l-2.3,2.3c-0.4,0.4-1,0.4-1.4,0c-0.4-0.4-0.4-1,0-1.4l2.3-2.3L8.3,
-                            9.7c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0l2.3,2.3
-	                        l2.3-2.3c0.4-0.4,1-0.4,1.4,0c0.4,0.4,0.4,1,0,1.4L13.4,12L15.7,14.3z">
-                    </path>
+                    width="16" height="16"
+                    fill="white"
+                    class="bi bi-x-square-fill"
+                    viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
                 </svg>
             </div>
         </div>

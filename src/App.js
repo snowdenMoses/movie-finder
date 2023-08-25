@@ -59,8 +59,8 @@ function App() {
     <>
       {!onFavouriteClicked ?
         <div className='flex-row items-center bg-black text-[red] overflow-hidden w-auto h-full mx-10 p-10 my-10 rounded-md'>
-          <Layout text="Find That Movie"/>
-          <div className='flex justify-between items-center py-3'>
+          <Layout text="Find That Movie" />
+          <div className='flex justify-between items-center py-5'>
             <div className='flex justify-start py-3'>
               <SearchBox searchWord={movieName} setSearchWord={setMoviename} />
               <Button handleMovieSearch={handleMovieSearch}>Search</Button>
@@ -95,8 +95,8 @@ function App() {
         :
 
         <div className='flex-row items-center bg-black text-[red] overflow-hidden w-auto h-full mx-10 p-10 my-10 rounded-md'>
-          <Layout text="Favourite Movies"/>
-          <div className='flex justify-end items-center'>
+          <Layout text="Favourite Movies" />
+          <div className='flex justify-end items-center py-5'>
             <div className={`font-bold cursor-pointer mr-2 font-custom ${!onFavouriteClicked ? 'border-b-2 border-[red]' : ""}`} onClick={() => { setOnFavouriteClicked(false) }}>Home</div>
             <div className={`font-bold cursor-pointer font-custom ${onFavouriteClicked ? 'border-b-2 border-[red]' : ""}`} onClick={() => { setOnFavouriteClicked(true) }}>Favourites</div>
           </div>
@@ -110,8 +110,12 @@ function App() {
                   favourite={RemoveFromFavourite} />
               })}
             </div>
+            {favouriteMovies?.length == 0 &&
+              <div className='font-custom font-bold border-2 border-[red] rounded p-3'>
+                Your Favourite Movie List is Empty
+              </div>}
           </div>
-          {movies?.Search?.length > 0 && <Pagination movieName={movieName} />}
+          {favouriteMovies?.length > 0 && <Pagination movieName={movieName} />}
         </div>}
     </>
   );
