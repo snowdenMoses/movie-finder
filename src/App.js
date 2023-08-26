@@ -61,8 +61,8 @@ function App() {
       {!onFavouriteClicked ?
         <div className='flex-row items-center bg-black text-[red] overflow-hidden w-auto h-full mx-10 p-10 my-10 rounded-md'>
           <Layout text="Find That Movie" />
-          <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-between md:justify-between ssm:justify-between sm:items-center  py-5'>
-            <div className='flex justify-start py-3'>
+          <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-between md:justify-between ssm:justify-between sm:items-start  py-5'>
+            <div className='flex lg:flex-row md:flex-row ssm:flex-row sm:flex-col lg:justify-between md:justify-between ssm:justify-between sm:items-start ssm:items-center'>
               <SearchBox searchWord={movieName} setSearchWord={setMoviename} />
               <Button handleMovieSearch={handleMovieSearch} title="Search" />
             </div>

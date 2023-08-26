@@ -14,7 +14,7 @@ module.exports = {
       'custom': ['MuseoModerno', 'sans-serif'],
     },
     screens: {
-      'sm': '480px',
+      'sm': '450px',
       // => @media (min-width: 576px) { ... }
 
       'md': '760px',
